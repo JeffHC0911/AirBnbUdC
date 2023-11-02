@@ -1,4 +1,4 @@
-﻿@model AirBnbUdC.GUI.Models.Parameters.CityModel
+﻿﻿@model AirBnbUdC.GUI.Models.Parameters.CityModel
 
 @{
     ViewBag.Title = "Details";
@@ -16,6 +16,13 @@
 
         <dd>
             @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Country.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Country.Name)
         </dd>
 
     </dl>
