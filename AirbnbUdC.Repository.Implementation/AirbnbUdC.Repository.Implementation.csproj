@@ -92,6 +92,11 @@
     <Compile Include="DataModel\Reservation.cs">
       <DependentUpon>DataModelCore.tt</DependentUpon>
     </Compile>
+    <Compile Include="Implementation\Parameters\CityImplementationRepository.cs" />
+    <Compile Include="Implementation\Parameters\CountryImplementationRepository.cs" />
+    <Compile Include="Mappers\BaseMapperRepository.cs" />
+    <Compile Include="Mappers\Parameters\CityMapperRepository.cs" />
+    <Compile Include="Mappers\Parameters\CountryMapperRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -128,5 +133,6 @@
       <Name>AirbnbUdC.Repository.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

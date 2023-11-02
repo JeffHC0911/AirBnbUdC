@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace AirbnbUdC.GUI.Controllers
+namespace AirBnbUdC.GUI.Controllers
 {
     public class HomeController : Controller
     {
