@@ -13,15 +13,22 @@ namespace AirBnbUdC.GUI.Controllers.Parameters
 {
     public class CitiesController : Controller
     {
-        private ICityApplication app = new CityImplementationApplication();
-        private ICountryApplication countryApp = new CountryImplementationApplication();
+        private ICityApplication _app;
+        private ICountryApplication _countryApp;
+
+        public CitiesController(ICityApplication app, ICountryApplication countryApp)
+        {
+            this._app = app;
+            this._countryApp = countryApp;
+
+        }
 
         CityMapperGUI mapper = new CityMapperGUI();
 
         // GET: CityModels
         public ActionResult Index(string filter = "")
         {
-            var list = mapper.MapperT1toT2(app.GetAllRecords(filter));
+            var list = mapper.MapperT1toT2(_app.GetAllRecords(filter));
             return View(list);
         }
 
@@ -32,7 +39,7 @@ namespace AirBnbUdC.GUI.Controllers.Parameters
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CityModel cityModel = mapper.MapperT1toT2(app.GetRecord(id));
+            CityModel cityModel = mapper.MapperT1toT2(_app.GetRecord(id));
             if (cityModel == null)
             {
                 return HttpNotFound();
@@ -51,7 +58,7 @@ namespace AirBnbUdC.GUI.Controllers.Parameters
         private void FillListForView(CityModel model)
         {
             CountryMapperGUI countryMapper = new CountryMapperGUI();
-            model.CountryList = countryMapper.MapperT1toT2(countryApp.GetAllRecords(string.Empty));
+            model.CountryList = countryMapper.MapperT1toT2(_countryApp.GetAllRecords(string.Empty));
         }
 
         // POST: CityModels/Create
@@ -65,7 +72,7 @@ namespace AirBnbUdC.GUI.Controllers.Parameters
             if (ModelState.IsValid)
             {
                 CityDTO cityDTO = mapper.MapperT2toT1(cityModel);
-                app.CreateRecord(cityDTO);
+                _app.CreateRecord(cityDTO);
                 return RedirectToAction("Index");
             }
 
@@ -79,7 +86,7 @@ namespace AirBnbUdC.GUI.Controllers.Parameters
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CityModel cityModel = mapper.MapperT1toT2(app.GetRecord(id));
+            CityModel cityModel = mapper.MapperT1toT2(_app.GetRecord(id));
             if (cityModel == null)
             {
                 return HttpNotFound();
@@ -99,7 +106,7 @@ namespace AirBnbUdC.GUI.Controllers.Parameters
             if (ModelState.IsValid)
             {
                 CityDTO cityDTO = mapper.MapperT2toT1(cityModel);
-                app.UpdateRecord(cityDTO);
+                _app.UpdateRecord(cityDTO);
                 return RedirectToAction("Index");
             }
             return View(cityModel);
@@ -112,7 +119,7 @@ namespace AirBnbUdC.GUI.Controllers.Parameters
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CityModel cityModel = mapper.MapperT1toT2(app.GetRecord(id));
+            CityModel cityModel = mapper.MapperT1toT2(_app.GetRecord(id));
             if (cityModel == null)
             {
                 return HttpNotFound();
@@ -125,13 +132,13 @@ namespace AirBnbUdC.GUI.Controllers.Parameters
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            app.DeleteRecord(id);
+            _app.DeleteRecord(id);
             return RedirectToAction("Index");
         }
 
         public ActionResult GenerateReport(string format = "PDF")
         {
-            var list = app.GetAllRecords(string.Empty);
+            var list = _app.GetAllRecords(string.Empty);
             CityMapperGUI cityMapperGUI = new CityMapperGUI();
             List<CitiesByCountryReportModel> recordsList = new List<CitiesByCountryReportModel>();
 
