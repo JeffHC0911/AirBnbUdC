@@ -11,6 +11,7 @@ namespace AirBnbUdC.GUI.App_Start
     using SimpleInjector.Integration.Web.Mvc;
     using AirbnbUdc.Repository.Contracts.Contracts.Parameters;
     using AirbnbUdc.Repository.Implementation.Implementation.Parameters;
+    using AirbnbUdC.Repository.Contracts.Contracts.Parameters;
 
     public static class SimpleInjectorInitializer
     {
@@ -37,6 +38,8 @@ namespace AirBnbUdC.GUI.App_Start
             container.Register<ICountryApplication, CountryImplementationApplication>(Lifestyle.Scoped);
             container.Register<ICityRepository, CityImplementationRepository>(Lifestyle.Scoped);
             container.Register<ICountryRepository, CountryImplementationRepository>(Lifestyle.Scoped);
+            container.Register<IMultimediaTypeApplication, MultimediaTypeImplementationApplication>(Lifestyle.Scoped);
+            container.Register<IMultimediaTypeRepository, MultimediaTypeImplementationRepository>(Lifestyle.Scoped);
             container.RegisterMvcControllers();
 
         }
